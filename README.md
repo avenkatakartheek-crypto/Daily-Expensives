@@ -1,6 +1,6 @@
 # Monthly Spending Tracker
 
-A small offline-first spending tracker. Enter a monthly budget and record expenses one day at a time. The selected date controls the month summary, while the entry list remains specific to the selected day.
+A small offline-first spending tracker. Enter a monthly budget, record expenses one day at a time, and save a separate current credit card balance. The selected date controls the month summary, while the entry list remains specific to the selected day.
 
 ## Data and privacy
 
@@ -14,3 +14,4 @@ Expenses and the budget are saved in this browser's local storage. They are not 
 4. Select branch **main**, folder **/(root)**, then save.
 
 GitHub Pages publishes `index.html` from the selected branch. Publishing may take a few minutes.
+
