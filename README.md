@@ -1,6 +1,6 @@
 ﻿# Monthly Spending Tracker
 
-A small offline-first spending tracker. Enter a monthly budget, record expenses one day at a time, and track card purchases and payments separately. Card purchases count toward monthly spending; payments reduce the card balance without counting as new spending. The selected date controls the month summary, while the entry list remains specific to the selected day.
+A small offline-first spending tracker with separate Monthly tracker and Credit card screens. Enter a monthly budget, record expenses one day at a time, and track card purchases and payments separately. Card purchases count toward monthly spending; payments reduce the card balance without counting as new spending. The selected date controls the month summary, while the entry list remains specific to the selected day.
 
 ## Data and privacy
 

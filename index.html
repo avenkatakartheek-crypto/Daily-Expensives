@@ -4,15 +4,17 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Monthly Spending Tracker</title>
 <style>
-:root{--ink:#172033;--muted:#667085;--blue:#2457c5;--line:#e4e8ef;--bg:#f5f7fb;--green:#147a52;--red:#bd3434}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:780px;margin:36px auto;padding:0 18px}h1{margin:0 0 4px;font-size:28px}.sub{margin:0 0 22px;color:var(--muted)}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin:14px 0;box-shadow:0 3px 12px #17203308}.row{display:flex;gap:14px;align-items:end;flex-wrap:wrap}.field{flex:1 1 150px}.field.narrow{max-width:230px}label{display:block;font-size:13px;font-weight:650;margin-bottom:6px;color:#39445a}input,button,select{font:inherit}select{width:100%;border:1px solid #cbd2df;border-radius:8px;padding:10px 11px;background:#fff;color:var(--ink)}input{width:100%;border:1px solid #cbd2df;border-radius:8px;padding:10px 11px;background:#fff;color:var(--ink)}input:focus{outline:3px solid #2457c522;border-color:var(--blue)}button{border:0;border-radius:8px;padding:10px 15px;background:var(--blue);color:#fff;font-weight:700;cursor:pointer}.save{background:#eaf0ff;color:var(--blue)}.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.metric{padding:15px;background:#f7f9fc;border-radius:10px}.metric span{display:block;color:var(--muted);font-size:13px}.metric strong{display:block;font-size:23px;margin-top:4px}.remaining{color:var(--green)}.over{color:var(--red)}h2{font-size:18px;margin:0 0 14px}table{width:100%;border-collapse:collapse}th,td{padding:10px 8px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em}td.amount,th.amount{text-align:right;white-space:nowrap}.delete{background:transparent;color:var(--red);padding:4px 8px;font-size:14px}.empty,.status{color:var(--muted);font-size:14px}.empty{text-align:center;padding:22px 8px}@media(max-width:580px){main{margin:22px auto}.summary{grid-template-columns:1fr}.metric{padding:12px}.metric strong{font-size:20px}}
+:root{--ink:#172033;--muted:#667085;--blue:#2457c5;--line:#e4e8ef;--bg:#f5f7fb;--green:#147a52;--red:#bd3434}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:780px;margin:36px auto;padding:0 18px}h1{margin:0 0 4px;font-size:28px}.sub{margin:0 0 22px;color:var(--muted)}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin:14px 0;box-shadow:0 3px 12px #17203308}.row{display:flex;gap:14px;align-items:end;flex-wrap:wrap}.field{flex:1 1 150px}.field.narrow{max-width:230px}label{display:block;font-size:13px;font-weight:650;margin-bottom:6px;color:#39445a}input,button,select{font:inherit}select{width:100%;border:1px solid #cbd2df;border-radius:8px;padding:10px 11px;background:#fff;color:var(--ink)}input{width:100%;border:1px solid #cbd2df;border-radius:8px;padding:10px 11px;background:#fff;color:var(--ink)}input:focus{outline:3px solid #2457c522;border-color:var(--blue)}button{border:0;border-radius:8px;padding:10px 15px;background:var(--blue);color:#fff;font-weight:700;cursor:pointer}.tracker-tabs{display:flex;gap:8px;margin:18px 0}.tracker-tab{background:#fff;color:var(--ink);border:1px solid var(--line)}.tracker-tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}[hidden]{display:none!important}.save{background:#eaf0ff;color:var(--blue)}.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.metric{padding:15px;background:#f7f9fc;border-radius:10px}.metric span{display:block;color:var(--muted);font-size:13px}.metric strong{display:block;font-size:23px;margin-top:4px}.remaining{color:var(--green)}.over{color:var(--red)}h2{font-size:18px;margin:0 0 14px}table{width:100%;border-collapse:collapse}th,td{padding:10px 8px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em}td.amount,th.amount{text-align:right;white-space:nowrap}.delete{background:transparent;color:var(--red);padding:4px 8px;font-size:14px}.empty,.status{color:var(--muted);font-size:14px}.empty{text-align:center;padding:22px 8px}@media(max-width:580px){main{margin:22px auto}.summary{grid-template-columns:1fr}.metric{padding:12px}.metric strong{font-size:20px}}
 </style></head>
 <body><main>
-<h1>Monthly Spending Tracker</h1><p class="sub">Set your monthly budget, add expenses by date, and see what is left this month.</p>
+<h1 id="appTitle">Monthly Spending Tracker</h1><p class="sub" id="appSubtitle">Set your monthly budget, add expenses by date, and see what is left this month.</p>
+<nav class="tracker-tabs" aria-label="Tracker options"><button type="button" id="monthlyTab" class="tracker-tab active" aria-pressed="true">Monthly tracker</button><button type="button" id="creditCardTab" class="tracker-tab" aria-pressed="false">Credit card</button></nav>
+<div id="monthlyView">
 <section class="card"><div class="row"><div class="field narrow"><label for="budget">Monthly budget (₹)</label><input id="budget" type="number" min="0" step="0.01" placeholder="e.g. 15000"></div><button class="save" id="saveBudget">Save budget</button></div><p class="status" id="budgetMessage">Your monthly budget is saved in this browser on this device.</p></section>
 
 <section class="card"><div class="row"><div class="field narrow"><label for="day">Spending date</label><input id="day" type="date"></div></div><div class="summary" style="margin-top:16px"><div class="metric"><span>Spent this month</span><strong id="spent">₹0.00</strong></div><div class="metric"><span>Monthly budget</span><strong id="budgetTotal">Not set</strong></div><div class="metric"><span>Left this month</span><strong id="left" class="remaining">Not set</strong></div></div></section>
 <section class="card"><h2>Add a spending entry</h2><form id="expenseForm" class="row"><div class="field"><label for="amount">Amount (₹)</label><input id="amount" type="number" min="0.01" step="0.01" placeholder="e.g. 80" required></div><div class="field"><label for="what">What was it for?</label><input id="what" type="text" maxlength="80" placeholder="e.g. lunch, bus fare"></div><button type="submit">Add expense</button></form></section>
-<section class="card"><h2 id="listTitle">Entries for today</h2><div id="entries"></div></section><section class="card">
+<section class="card"><h2 id="listTitle">Entries for today</h2><div id="entries"></div></section></div><div id="creditCardView" hidden><section class="card">
   <h2>Credit card balance</h2>
   <div class="summary" style="margin:16px 0">
     <div class="metric"><span>Current card balance</span><strong id="currentCardBalance">Set starting balance</strong></div>
@@ -36,7 +38,7 @@
   </form>
   <h2 id="cardListTitle" style="margin-top:20px">Card entries for today</h2>
   <div id="cardEntries"></div>
-</section>
+</section></div>
 </main><script>
 (()=>{
   const KEY='monthly-spending-tracker-v1';
@@ -53,6 +55,20 @@
   dayInput.value=today();
   cardDateInput.value=today();
   function save(){localStorage.setItem(KEY,JSON.stringify(data))}
+function setView(view){
+    const showCard=view==='card';
+    $('monthlyView').hidden=showCard;
+    $('creditCardView').hidden=!showCard;
+    $('monthlyTab').classList.toggle('active',!showCard);
+    $('creditCardTab').classList.toggle('active',showCard);
+    $('monthlyTab').setAttribute('aria-pressed',String(!showCard));
+    $('creditCardTab').setAttribute('aria-pressed',String(showCard));
+    $('appTitle').textContent=showCard?'Credit Card Tracker':'Monthly Spending Tracker';
+    document.title=showCard?'Credit Card Tracker':'Monthly Spending Tracker';
+    $('appSubtitle').textContent=showCard?'Track card purchases, payments, and your current balance.':'Set your monthly budget, add expenses by date, and see what is left this month.';
+    data.activeView=showCard?'card':'monthly';
+    save();
+  }
   function currentCardBalance(){
     const start=Number(data.creditCardBalance)||0;
     const activity=data.cardTransactions.reduce((total,t)=>total+(t.type==='purchase'?Number(t.amount):-Number(t.amount)),0);
@@ -129,8 +145,11 @@
     data.cardTransactions.push({id:Date.now()+Math.random(),date:cardDateInput.value||today(),amount,type:$('cardType').value,what:$('cardWhat').value.trim()});
     save();$('cardAmount').value='';$('cardWhat').value='';render();renderCard();
   });
+  $('monthlyTab').addEventListener('click',()=>setView('monthly'));
+  $('creditCardTab').addEventListener('click',()=>setView('card'));
   dayInput.addEventListener('change',render);
   cardDateInput.addEventListener('change',()=>{render();renderCard()});
+  setView(data.activeView==='card'?'card':'monthly');
   render();renderCard();
 })();
 </script></body></html>
